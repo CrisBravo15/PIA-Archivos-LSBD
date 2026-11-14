@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registrar salida | Control de asistencia</title>
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand brand-header" href="menu.html"><span class="brand-symbol">CA</span><span class="brand-name">CONTROL DE ASISTENCIA</span></a>
+    <a class="header-link" href="menu.html">← Menú principal</a>
+  </header>
+  <main class="page-container page-narrow">
+    <div class="page-title">
+      <span class="overline">CONTROL DE ASISTENCIA / MOVIMIENTOS</span>
+      <h1>Registrar salida</h1>
+      <p>Identifica al trabajador y confirma su hora de salida.</p>
+    </div>
+    <section class="panel">
+      <div class="record-type record-exit"><span class="record-arrow">↑</span><div><strong>Salida de personal</strong><small>Se registrará el término de la jornada laboral.</small></div></div>
+      <form class="form record-form" id="exitForm" action="#" method="post">
+        <div class="form-field">
+          <label for="exitEmployeeId">Matrícula / número de empleado <span>*</span></label>
+          <input id="exitEmployeeId" name="matricula" type="text" placeholder="Ej. EMP-001" required>
+        </div>
+        <div class="form-field">
+          <label for="exitEmployeeName">Nombre del trabajador <span>*</span></label>
+          <input id="exitEmployeeName" name="nombre" type="text" placeholder="Nombre completo" required>
+        </div>
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="exitDate">Fecha</label>
+            <input id="exitDate" name="fecha" type="date" readonly>
+          </div>
+          <div class="form-field">
+            <label for="exitTime">Hora de salida</label>
+            <input id="exitTime" name="hora" type="time" readonly>
+          </div>
+        </div>
+        <p class="small-note">La fecha y la hora se muestran desde el dispositivo. Al integrar el backend, el registro oficial deberá generarse y validarse en el servidor.</p>
+        <p class="form-message" id="exitMessage" role="status" aria-live="polite"></p>
+        <div class="form-actions">
+          <a class="button button-secondary" href="menu.html">Cancelar</a>
+          <button class="button button-primary" type="submit">Confirmar salida <span aria-hidden="true">→</span></button>
+        </div>
+      </form>
+      <div class="confirmation-box" id="exitConfirmation" hidden role="status" aria-live="polite">
+        <span class="confirmation-mark">✓</span>
+        <div><strong>Salida preparada</strong><p>La interfaz validó los datos. El registro definitivo se habilitará al conectar el servidor.</p></div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">Sistema de control de asistencia · Interfaz de usuario</footer>
+</body>
+</html>

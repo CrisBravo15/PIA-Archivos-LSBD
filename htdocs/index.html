@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Acceso al sistema de control de asistencia del personal.">
+  <title>Iniciar sesión | Control de asistencia</title>
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script src="js/app.js" defer></script>
+</head>
+<body class="login-page">
+  <main class="login-shell">
+    <section class="login-info">
+      <a class="brand" href="index.html" aria-label="Inicio">
+        <span class="brand-symbol">CA</span>
+        <span class="brand-name">CONTROL DE ASISTENCIA</span>
+      </a>
+      <div class="info-copy">
+        <span class="overline">SISTEMA INTERNO</span>
+        <h1>Registro de<br>personal</h1>
+        <p>Plataforma para gestionar las entradas y salidas del personal de la organización.</p>
+      </div>
+      <div class="info-bottom">
+        <span class="status-indicator"></span>
+        Sistema de control de acceso
+      </div>
+    </section>
+
+    <section class="login-content">
+      <div class="mobile-brand">
+        <span class="brand-symbol">CA</span>
+        <span class="brand-name">CONTROL DE ASISTENCIA</span>
+      </div>
+      <div class="section-heading">
+        <span class="overline">ACCESO AL SISTEMA</span>
+        <h2>Iniciar sesión</h2>
+        <p>Introduce tus datos para ingresar.</p>
+      </div>
+
+      <!-- El atributo action se definirá cuando se determine el backend. -->
+      <form class="form" id="loginForm" action="#" method="post">
+        <div class="form-field">
+          <label for="usuario">Matrícula o nombre de usuario</label>
+          <input id="usuario" name="usuario" type="text" placeholder="Escribe tu matrícula" autocomplete="username" required>
+        </div>
+        <div class="form-field">
+          <label for="contrasena">Contraseña</label>
+          <div class="password-wrap">
+            <input id="contrasena" name="contrasena" type="password" placeholder="Escribe tu contraseña" autocomplete="current-password" required>
+            <button class="password-toggle" type="button" data-toggle-password="contrasena" aria-label="Mostrar contraseña">Ver</button>
+          </div>
+        </div>
+        <p class="form-message" id="loginMessage" role="status" aria-live="polite"></p>
+        <button class="button button-primary button-wide" type="submit">Ingresar <span aria-hidden="true">→</span></button>
+      </form>
+      <div class="login-bottom">
+        <span>¿Aún no tienes cuenta?</span>
+        <a href="registro.html">Solicitar registro</a>
+      </div>
+      <p class="security-note">Acceso exclusivo para personal autorizado.</p>
+    </section>
+  </main>
+</body>
+</html>

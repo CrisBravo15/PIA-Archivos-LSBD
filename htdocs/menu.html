@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Menú principal del sistema de control de asistencia.">
+  <title>Menú principal | Control de asistencia</title>
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand brand-header" href="menu.html">
+      <span class="brand-symbol">CA</span>
+      <span class="brand-name">CONTROL DE ASISTENCIA</span>
+    </a>
+    <div class="topbar-right">
+      <span class="session-label"><span class="status-indicator"></span> Sesión de demostración</span>
+      <a class="header-link" href="index.html">Cerrar sesión</a>
+    </div>
+  </header>
+
+  <main class="page-container">
+    <div class="dashboard-heading">
+      <div class="page-title">
+        <span class="overline">PANEL DE CONTROL</span>
+        <h1>Menú principal</h1>
+        <p>Selecciona el módulo al que deseas ingresar.</p>
+      </div>
+      <div class="date-box">
+        <span class="date-label">FECHA</span>
+        <strong id="currentDate">--</strong>
+      </div>
+    </div>
+
+    <section class="module-grid" aria-label="Módulos del sistema">
+      <a class="module-card" href="registro-entrada.html">
+        <span class="module-number">01</span>
+        <span class="module-icon" aria-hidden="true">↓</span>
+        <h2>Registrar entrada</h2>
+        <p>Registrar la hora de ingreso del trabajador.</p>
+        <span class="module-action">Acceder <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="module-card" href="registro-salida.html">
+        <span class="module-number">02</span>
+        <span class="module-icon" aria-hidden="true">↑</span>
+        <h2>Registrar salida</h2>
+        <p>Registrar la hora de salida del trabajador.</p>
+        <span class="module-action">Acceder <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="module-card" href="#" data-module="consulta">
+        <span class="module-number">03</span>
+        <span class="module-icon" aria-hidden="true">≡</span>
+        <h2>Consultar registros</h2>
+        <p>Revisar el historial de entradas y salidas.</p>
+        <span class="module-action">Acceder <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="module-card" href="registro.html">
+        <span class="module-number">04</span>
+        <span class="module-icon" aria-hidden="true">＋</span>
+        <h2>Registrar usuario</h2>
+        <p>Capturar los datos de un nuevo usuario.</p>
+        <span class="module-action">Acceder <span aria-hidden="true">→</span></span>
+      </a>
+    </section>
+
+    <div class="system-notice">
+      <strong>Información:</strong> Los módulos de asistencia son accesos visuales de demostración. Sus funciones se habilitarán al integrarse con el backend.
+    </div>
+  </main>
+  <footer class="footer">Sistema de control de asistencia · Interfaz de usuario</footer>
+</body>
+</html>

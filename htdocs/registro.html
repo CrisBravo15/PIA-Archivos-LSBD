@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Formulario de registro de usuarios.">
+  <title>Registro | Control de asistencia</title>
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand brand-header" href="index.html">
+      <span class="brand-symbol">CA</span>
+      <span class="brand-name">CONTROL DE ASISTENCIA</span>
+    </a>
+    <a class="header-link" href="index.html">← Regresar al acceso</a>
+  </header>
+
+  <main class="page-container page-narrow">
+    <div class="page-title">
+      <span class="overline">ALTA DE PERSONAL</span>
+      <h1>Registro de usuario</h1>
+      <p>Captura la información solicitada. Los campos marcados son obligatorios.</p>
+    </div>
+
+    <!-- El destino del formulario se configurará cuando se defina el backend. -->
+    <form class="panel form" id="registerForm" action="#" method="post">
+      <div class="form-grid">
+        <div class="form-field">
+          <label for="matricula">Matrícula / número de empleado <span>*</span></label>
+          <input id="matricula" name="matricula" type="text" placeholder="Ej. EMP-001" required>
+        </div>
+        <div class="form-field">
+          <label for="nombre">Nombre completo <span>*</span></label>
+          <input id="nombre" name="nombre" type="text" placeholder="Nombre y apellidos" autocomplete="name" required>
+        </div>
+        <div class="form-field">
+          <label for="correo">Correo electrónico <span>*</span></label>
+          <input id="correo" name="correo" type="email" placeholder="usuario@correo.com" autocomplete="email" required>
+        </div>
+        <div class="form-field">
+          <label for="departamento">Departamento <span>*</span></label>
+          <select id="departamento" name="departamento" required>
+            <option value="">Selecciona una opción</option>
+            <option value="produccion">Producción</option>
+            <option value="mantenimiento">Mantenimiento</option>
+            <option value="almacen">Almacén</option>
+            <option value="administracion">Administración</option>
+            <option value="recursos-humanos">Recursos humanos</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="password">Contraseña <span>*</span></label>
+          <input id="password" name="password" type="password" placeholder="Mínimo 8 caracteres" minlength="8" autocomplete="new-password" required>
+        </div>
+        <div class="form-field">
+          <label for="confirmPassword">Confirmar contraseña <span>*</span></label>
+          <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Repite la contraseña" minlength="8" autocomplete="new-password" required>
+        </div>
+      </div>
+      <p class="form-message" id="registerMessage" role="status" aria-live="polite"></p>
+      <div class="form-actions">
+        <a class="button button-secondary" href="index.html">Cancelar</a>
+        <button class="button button-primary" type="submit">Enviar solicitud <span aria-hidden="true">→</span></button>
+      </div>
+      <p class="small-note">La cuenta deberá ser validada y almacenada por el sistema cuando se conecte con el servidor.</p>
+    </form>
+  </main>
+  <footer class="footer">Sistema de control de asistencia · Interfaz de usuario</footer>
+</body>
+</html>
