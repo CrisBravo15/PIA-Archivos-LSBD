@@ -3,29 +3,13 @@ include('getconex.php');
 session_start();
 date_default_timezone_set('America/Monterrey');
 
-// Verificar que exista una sesión iniciada
 if (!isset($_SESSION['logged_user'])) {
     header("Location: index.html");
     exit();
 }
 
-$usuario_sesion = $_SESSION['logged_user'];
-
-// Obtener IdEmpleado y Puesto del usuario logueado (soporta si guardan IdEmpleado o NombreUsuario en sesión)
-if (is_numeric($usuario_sesion)) {
-    $sql_emp = "SELECT IdEmpleado, Nombre, Apellido, Puesto FROM [Empleados] WHERE IdEmpleado = ?";
-    $stmt_emp = sqlsrv_query($conectar, $sql_emp, array((int)$usuario_sesion));
-} else {
-    $sql_emp = "SELECT E.IdEmpleado, E.Nombre, E.Apellido, E.Puesto 
-                FROM [Empleados] E
-                INNER JOIN [UsuariosAplicacion] U ON E.IdEmpleado = U.IdEmpleado
-                WHERE U.NombreUsuario = ?";
-    $stmt_emp = sqlsrv_query($conectar, $sql_emp, array($usuario_sesion));
-}
-
-$empleado = $stmt_emp ? sqlsrv_fetch_array($stmt_emp, SQLSRV_FETCH_ASSOC) : null;
-$id_empleado = $empleado ? (int)$empleado['IdEmpleado'] : 0;
-$puesto_txt = $empleado ? strtolower(trim($empleado['Puesto'])) : '';
+$id_empleado = (int)$_SESSION['logged_user'];
+$puesto_txt = isset($_SESSION['puesto']) ? strtolower(trim($_SESSION['puesto'])) : '';
 ?>
 <!doctype html>
 <html lang="es">
@@ -63,13 +47,21 @@ $puesto_txt = $empleado ? strtolower(trim($empleado['Puesto'])) : '';
 
     <section class="module-grid" aria-label="Módulos del sistema">
       <?php
+      // Consultar asistencias del empleado usando el SP permitido
       $fecha_hoy = date('Y-m-d');
-      $sql_asist = "SELECT * FROM [Asistencias] WHERE IdEmpleado = ? AND Fecha = ?";
-      $stmt_asist = sqlsrv_query($conectar, $sql_asist, array($id_empleado, $fecha_hoy));
-      $fila = $stmt_asist ? sqlsrv_fetch_array($stmt_asist, SQLSRV_FETCH_ASSOC) : null;
+      $sql_asist = "{CALL dbo.sp_ConsultarAsistenciasEmpleado(?)}";
+      $stmt_asist = sqlsrv_query($conectar, $sql_asist, array($id_empleado));
+      
+      // Buscar si el registro más reciente corresponde al día de hoy
+      $registro_hoy = null;
+      if ($stmt_asist) {
+          $primera_fila = sqlsrv_fetch_array($stmt_asist, SQLSRV_FETCH_ASSOC);
+          if ($primera_fila && $primera_fila['Fecha']->format('Y-m-d') === $fecha_hoy) {
+              $registro_hoy = $primera_fila;
+          }
+      }
 
-      if ($fila == NULL) {
-          // No ha registrado entrada ni salida hoy
+      if ($registro_hoy == NULL) {
           echo '<a class="module-card" href="form_result_entrada.php">';
           echo '<span class="module-number">01</span>';
           echo '<span class="module-icon" aria-hidden="true">↓</span>';
@@ -77,8 +69,7 @@ $puesto_txt = $empleado ? strtolower(trim($empleado['Puesto'])) : '';
           echo '<p>Registrar la hora de ingreso del trabajador.</p>';
           echo '<span class="module-action">Acceder <span aria-hidden="true">→</span></span>';
           echo '</a>';
-      } elseif ($fila['HoraSalida'] == NULL) {
-          // Ya registró entrada, falta registrar salida hoy
+      } elseif ($registro_hoy['HoraSalida'] == NULL) {
           echo '<a class="module-card" href="form_result_salida.php">';
           echo '<span class="module-number">02</span>';
           echo '<span class="module-icon" aria-hidden="true">↑</span>';
@@ -87,7 +78,6 @@ $puesto_txt = $empleado ? strtolower(trim($empleado['Puesto'])) : '';
           echo '<span class="module-action">Acceder <span aria-hidden="true">→</span></span>';
           echo '</a>';
       } else {
-          // Ya registró tanto entrada como salida hoy (Req #11)
           echo '<div class="module-card" style="opacity: 0.75; cursor: default;">';
           echo '<span class="module-number">✓</span>';
           echo '<span class="module-icon" aria-hidden="true">✔</span>';
@@ -107,7 +97,6 @@ $puesto_txt = $empleado ? strtolower(trim($empleado['Puesto'])) : '';
       </a>
 
       <?php
-      // Bloque de RH: visible únicamente para administradores de Recursos Humanos (Req #12)
       if (strpos($puesto_txt, 'rh') !== false || strpos($puesto_txt, 'recursos humanos') !== false || strpos($puesto_txt, 'admin') !== false) {
           echo '<a class="module-card" href="rh_panel.php">';
           echo '<span class="module-number">04</span>';
