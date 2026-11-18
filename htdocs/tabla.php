@@ -1,14 +1,26 @@
+<?php
+include('getconex.php');
+session_start();
+
+if (!isset($_SESSION['logged_user'])) {
+    header("Location: index.html");
+    exit();
+}
+
+$id_empleado = (int)$_SESSION['logged_user'];
+?>
 <!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Tabla de horarios | Control de asistencia</title>
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
   <header class="topbar">
-    <a class="brand brand-header" href="menu.html">
+    <a class="brand brand-header" href="menu.php">
       <span class="brand-symbol">CA</span>
       <span class="brand-name">CONTROL DE ASISTENCIA</span>
     </a>
@@ -43,18 +55,18 @@
           </thead>
           <tbody>
             <?php
-            include('getconex.php');
-            session_start(); 
-            $sql = "SELECT * FROM [Asistencias] WHERE IdEmpleado = '{$_SESSION['logged_user']}'";
-            $stmt = sqlsrv_query($conectar, $sql);
+            $sql = "{CALL dbo.sp_ConsultarAsistenciasEmpleado(?)}";
+            $stmt = sqlsrv_query($conectar, $sql, array($id_empleado));
 
-            while ($fila = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-            echo "<tr>";
-            echo "<td>" . $fila['IdEmpleado'] . "</td>";
-            echo "<td>" . $fila['Fecha']->format('Y-m-d') . "</td>";
-            echo "<td>" . $fila['HoraEntrada']->format('H:i') . "</td>";
-            echo "<td>" . $fila['HoraSalida']?->format('H:i') . "</td>";
-            echo "</tr>";
+            if ($stmt) {
+                while ($fila = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                    echo "<tr>";
+                    echo "<td>" . (int)$fila['IdEmpleado'] . "</td>";
+                    echo "<td>" . $fila['Fecha']->format('Y-m-d') . "</td>";
+                    echo "<td>" . $fila['HoraEntrada']->format('H:i:s') . "</td>";
+                    echo "<td>" . ($fila['HoraSalida'] ? $fila['HoraSalida']->format('H:i:s') : 'Pendiente') . "</td>";
+                    echo "</tr>";
+                }
             }
             ?>
           </tbody>
