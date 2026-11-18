@@ -7,7 +7,6 @@
   <title>Iniciar sesión | Control de asistencia</title>
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/estilos.css">
-  <script src="js/app.js" defer></script>
 </head>
 <body class="login-page">
   <main class="login-shell">
@@ -39,15 +38,15 @@
       </div>
 
       <!-- El atributo action se definirá cuando se determine el backend. -->
-      <form class="form" id="loginForm" action="#" method="post">
+      <form class="form" id="loginForm" action="login_result.php" method="post">
         <div class="form-field">
           <label for="usuario">Matrícula o nombre de usuario</label>
-          <input id="usuario" name="usuario" type="text" placeholder="Escribe tu matrícula" autocomplete="username" required>
+          <input id="usuario" name="usuario" type="text" placeholder="Escribe tu matrícula">
         </div>
         <div class="form-field">
           <label for="contrasena">Contraseña</label>
           <div class="password-wrap">
-            <input id="contrasena" name="contrasena" type="password" placeholder="Escribe tu contraseña" autocomplete="current-password" required>
+            <input id="contrasena" name="contrasena" type="password" placeholder="Escribe tu contraseña">
             <button class="password-toggle" type="button" data-toggle-password="contrasena" aria-label="Mostrar contraseña">Ver</button>
           </div>
         </div>
