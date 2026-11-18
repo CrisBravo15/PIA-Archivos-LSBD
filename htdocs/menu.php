@@ -10,7 +10,7 @@
 </head>
 <body>
   <header class="topbar">
-    <a class="brand brand-header" href="menu.html">
+    <a class="brand brand-header" href="menu.php">
       <span class="brand-symbol">CA</span>
       <span class="brand-name">CONTROL DE ASISTENCIA</span>
     </a>
