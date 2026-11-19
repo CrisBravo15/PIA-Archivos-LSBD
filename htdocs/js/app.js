@@ -24,20 +24,14 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("confirmPassword").focus();
         return;
       }
-      // Evita enviar a una ruta inexistente mientras el backend no esté definido.
-      event.preventDefault();
-      message.textContent = "Validación visual correcta. El envío se habilitará al conectar el backend.";
     });
   }
 
-  // La pantalla de acceso todavía no autentica: muestra aviso de integración pendiente.
-  const loginForm = document.getElementById("loginForm");
-  if (loginForm) {
-    loginForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const message = document.getElementById("loginMessage");
-      message.textContent = "La autenticación estará disponible cuando se conecte el servidor.";
-    });
+  // La fecha de nacimiento no puede ser futura.
+  const fechaNac = document.getElementById("fechaNac");
+  if (fechaNac) {
+    const t = new Date();
+    fechaNac.max = `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, "0")}-${String(t.getDate()).padStart(2, "0")}`;
   }
 
   // Fecha del día en el menú principal.

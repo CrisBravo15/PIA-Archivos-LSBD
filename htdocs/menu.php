@@ -28,7 +28,7 @@ $puesto_txt = isset($_SESSION['puesto']) ? strtolower(trim($_SESSION['puesto']))
       <span class="brand-name">CONTROL DE ASISTENCIA</span>
     </a>
     <div class="topbar-right">
-      <a class="header-link" href="index.html">Cerrar sesión</a>
+      <a class="header-link" href="logout.php">Cerrar sesión</a>
     </div>
   </header>
 
